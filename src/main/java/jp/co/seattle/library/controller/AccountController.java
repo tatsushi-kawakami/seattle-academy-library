@@ -60,9 +60,7 @@ public class AccountController {
 
 			if (password.equals(passwordForCheck)) {
 				userInfo.setPassword(password);
-
 				usersService.registUser(userInfo);
-
 				return "login";
 			} else {
 				model.addAttribute("errorPassword", "パスワードが一致しません");
