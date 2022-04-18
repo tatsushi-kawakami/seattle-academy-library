@@ -52,7 +52,8 @@ public class LoginController {
         	model.addAttribute("errorMessage","ログインに失敗しました");
         	return "login";
         } else {
-        	return "home";
+        	model.addAttribute("bookList", booksService.getBookList());
+            return "home";
         }
 
     }
