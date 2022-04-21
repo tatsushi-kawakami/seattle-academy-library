@@ -61,11 +61,15 @@ public class BooksService {
 	 * @param bookInfo 書籍情報
 	 */
 	public void registBook(BookDetailsInfo bookInfo) {
-
 		String sql = "INSERT INTO books (title, author,publisher,thumbnail_name,thumbnail_url,reg_date,upd_date) VALUES ('"
 				+ bookInfo.getTitle() + "','" + bookInfo.getAuthor() + "','" + bookInfo.getPublisher() + "','"
 				+ bookInfo.getThumbnailName() + "','" + bookInfo.getThumbnailUrl() + "'," + "now()," + "now())";
 
+		jdbcTemplate.update(sql);
+	}
+
+	public void deleteBook(Integer bookId) {
+		String sql = "DELETE FROM books WHERE id=" + bookId + ";";
 		jdbcTemplate.update(sql);
 	}
 }
