@@ -71,7 +71,7 @@ public class BooksService {
 	/**
 	 * 書籍を削除する
 	 *
-	 * @param bookInfo 書籍情報
+	 * @param bookId 書籍番号
 	 */
 	public void deleteBook(Integer bookId) {
 		String sql = "DELETE FROM books WHERE id=" + bookId + ";";
