@@ -11,31 +11,39 @@ import lombok.Data;
 @Configuration
 @Data
 public class BookDetailsInfo {
+private int bookId;
 
-    private int bookId;
+private String title;
 
-    private String title;
+private String author;
 
-    private String author;
+private String publisher;
 
-    private String publisher;
+private String publishDate;
 
-    private String thumbnailUrl;
+private String thumbnailUrl;
 
-    private String thumbnailName;
+private String thumbnailName;
 
-    public BookDetailsInfo() {
+private String isbn;
 
-    }
+private String explanation;
 
-    public BookDetailsInfo(int bookId, String title, String author, String publisher,
-            String thumbnailUrl, String thumbnailName) {
-        this.bookId = bookId;
-        this.title = title;
-        this.author = author;
-        this.publisher = publisher;
-        this.thumbnailUrl = thumbnailUrl;
-        this.thumbnailName = thumbnailName;
-    }
+	public BookDetailsInfo() {
+
+	}
+
+	public BookDetailsInfo(int bookId, String title, String author, String publisher, String publishDate,
+			String thumbnailUrl, String thumbnailName, String isbn, String explanation) {
+		this.bookId = bookId;
+		this.title = title;
+		this.author = author;
+		this.publisher = publisher;
+		this.publishDate = publishDate;
+		this.thumbnailUrl = thumbnailUrl;
+		this.thumbnailName = thumbnailName;
+		this.isbn = isbn;
+		this.explanation = explanation;
+	}
 
 }
