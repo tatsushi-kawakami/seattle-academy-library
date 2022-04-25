@@ -87,8 +87,6 @@ public class AddBooksController {
 				return "addBook";
 			}
 		}
-
-		// 書籍情報を新規登録する
 		List<String> list = new ArrayList<String>();
 
 		if (title.equals("") || author.equals("") || publisher.equals("") || publishDate.equals("")) {
@@ -97,12 +95,11 @@ public class AddBooksController {
 		if (!(publishDate.matches("^[0-9]{8}"))) {
 			list.add("<p>出版日は半角数字のYYYYMMDD形式で入力してください</p>");
 		}
-		if (!(isbn.equals(""))) {
-			if (!(isbn.matches("^[0-9]{10}|[0-9]{13}$"))) {
-				list.add("<p>ISBNの桁数または半角数字が正しくありません</p>");
-			}
+		if (!(isbn.equals("")) && !(isbn.matches("^[0-9]{10}|[0-9]{13}$"))) {
+			list.add("<p>ISBNの桁数または半角数字が正しくありません</p>");
 		}
 		if (list.size() == 0) {
+			// 書籍情報を新規登録する
 			booksService.registBook(bookInfo);
 			model.addAttribute("resultMessage", "登録完了");
 		} else {
@@ -112,7 +109,9 @@ public class AddBooksController {
 		}
 
 		// TODO 登録した書籍の詳細情報を表示するように実装
-		model.addAttribute("bookDetailsInfo", bookInfo);
+		int Max = booksService.max_id();
+		model.addAttribute("bookDetailsInfo", booksService.getBookInfo(Max));
+
 		// 詳細画面に遷移する
 		return "details";
 	}

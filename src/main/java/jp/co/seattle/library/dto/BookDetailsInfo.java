@@ -11,24 +11,23 @@ import lombok.Data;
 @Configuration
 @Data
 public class BookDetailsInfo {
+private int bookId;
 
-	private int bookId;
+private String title;
 
-	private String title;
+private String author;
 
-	private String author;
+private String publisher;
 
-	private String publisher;
+private String publishDate;
 
-	private String publishDate;
+private String thumbnailUrl;
 
-	private String thumbnailUrl;
+private String thumbnailName;
 
-	private String thumbnailName;
+private String isbn;
 
-	private String isbn;
-
-	private String explanation;
+private String explanation;
 
 	public BookDetailsInfo() {
 

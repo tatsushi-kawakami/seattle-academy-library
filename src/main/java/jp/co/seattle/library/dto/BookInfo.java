@@ -11,21 +11,21 @@ import lombok.Data;
 @Data
 public class BookInfo {
 
-	private int bookId;
+private int bookId;
 
-	private String title;
+private String title;
 
-	private String author;
+private String author;
 
-	private String publisher;
+private String publisher;
 
-	private String publishDate;
+private String publishDate;
 
-	private String thumbnail;
+private String thumbnail;
 
-	public BookInfo() {
+public BookInfo() {
 
-	}
+}
 
 	// コンストラクタ
 	public BookInfo(int bookId, String title, String author, String publisher, String publishDate, String thumbnail) {

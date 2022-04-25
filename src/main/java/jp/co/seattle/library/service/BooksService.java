@@ -70,6 +70,11 @@ public class BooksService {
 		jdbcTemplate.update(sql);
 	}
 
+	public int max_id() {
+		String sql = "select max(id) from books;";
+		return jdbcTemplate.queryForObject(sql, int.class);
+	}
+
 	/**
 	 * 書籍を削除する
 	 *
