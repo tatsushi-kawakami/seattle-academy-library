@@ -61,9 +61,11 @@ public class BooksService {
 	 * @param bookInfo 書籍情報
 	 */
 	public void registBook(BookDetailsInfo bookInfo) {
-		String sql = "INSERT INTO books (title, author,publisher,thumbnail_name,thumbnail_url,reg_date,upd_date) VALUES ('"
+		String sql = "INSERT INTO books (title,author,publisher,publish_date,thumbnail_name,thumbnail_url,reg_date,upd_date,isbn,explanation) VALUES ('"
 				+ bookInfo.getTitle() + "','" + bookInfo.getAuthor() + "','" + bookInfo.getPublisher() + "','"
-				+ bookInfo.getThumbnailName() + "','" + bookInfo.getThumbnailUrl() + "'," + "now()," + "now())";
+				+ bookInfo.getPublishDate() + "','" + bookInfo.getThumbnailName() + "','" + bookInfo.getThumbnailUrl()
+				+ "','" + "now()" + "','" + "now()" + "','" + bookInfo.getIsbn() + "','" + bookInfo.getExplanation()
+				+ "');";
 
 		jdbcTemplate.update(sql);
 	}

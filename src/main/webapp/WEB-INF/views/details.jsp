@@ -44,6 +44,9 @@
                 </div>
             </div>
             <div class="content_right">
+                <c:if test="${!empty resultMessage}">
+                    <div class="error_msg">${resultMessage}</div>
+                </c:if>
                 <div>
                     <span>書籍名</span>
                     <p>${bookDetailsInfo.title}</p>
@@ -55,6 +58,18 @@
                 <div>
                     <span>出版社</span>
                     <p>${bookDetailsInfo.publisher}</p>
+                </div>
+                <div>
+                    <span>出版日</span>
+                    <p>${bookDetailsInfo.publishDate}</p>
+                </div>
+                <div>
+                    <span>ISBN</span>
+                    <p>${bookDetailsInfo.isbn}</p>
+                </div>
+                <div>
+                    <span>説明文</span>
+                    <p>${bookDetailsInfo.explanation}</p>
                 </div>
             </div>
         </div>
