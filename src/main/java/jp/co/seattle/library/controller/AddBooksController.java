@@ -1,6 +1,5 @@
 package jp.co.seattle.library.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -87,23 +86,13 @@ public class AddBooksController {
 				return "addBook";
 			}
 		}
-		List<String> list = new ArrayList<String>();
-
-		if (title.equals("") || author.equals("") || publisher.equals("") || publishDate.equals("")) {
-			list.add("<p>必須項目に入力してください</p>");
-		}
-		if (!(publishDate.matches("^[0-9]{8}"))) {
-			list.add("<p>出版日は半角数字のYYYYMMDD形式で入力してください</p>");
-		}
-		if (!(isbn.equals("")) && !(isbn.matches("^[0-9]{10}|[0-9]{13}$"))) {
-			list.add("<p>ISBNの桁数または半角数字が正しくありません</p>");
-		}
-		if (list.size() == 0) {
+		List<String> error = booksService.errorList(title, author, publisher, publishDate, isbn);
+		if (error.size() == 0) {
 			// 書籍情報を新規登録する
 			booksService.registBook(bookInfo);
 			model.addAttribute("resultMessage", "登録完了");
 		} else {
-			model.addAttribute("errorMessageDetails", list);
+			model.addAttribute("errorMessageDetails", error);
 			model.addAttribute("bookInfo", bookInfo);
 			return "addBook";
 		}

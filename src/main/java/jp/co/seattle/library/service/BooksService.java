@@ -1,5 +1,6 @@
 package jp.co.seattle.library.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -75,18 +76,29 @@ public class BooksService {
 		return jdbcTemplate.queryForObject(sql, int.class);
 	}
 
+	/**
+	 * 書籍を更新する
+	 *
+	 * @param bookInfo 書籍情報
+	 */
 	public void updateBook(BookDetailsInfo bookInfo) {
-		String sql = "update books set title= '"+bookInfo.getTitle()+ 
-				"', author= '"+bookInfo.getAuthor()+ 
-				"', publisher='"+bookInfo.getPublisher()+
-				"', publish_date='"+bookInfo.getPublishDate()+ 
-				"', thumbnail_name='"+bookInfo.getThumbnailName()+
-				"',thumbnail_url='"+bookInfo.getThumbnailUrl()+
-				"',isbn='"+bookInfo.getIsbn()+
-				"',upd_date= now(),explanation ='"+bookInfo.getExplanation()+
-				"' where id="+bookInfo.getBookId();
+		if (bookInfo.getThumbnailUrl() == "null") {
+			String sql = "update books set title= '" + bookInfo.getTitle() + "', author= '" + bookInfo.getAuthor()
+					+ "', publisher='" + bookInfo.getPublisher() + "', publish_date='" + bookInfo.getPublishDate()
+					+ "',isbn='" + bookInfo.getIsbn() + "',upd_date= now(),explanation ='" + bookInfo.getExplanation()
+					+ "' where id=" + bookInfo.getBookId();
 
-		jdbcTemplate.update(sql);
+			jdbcTemplate.update(sql);
+		} else {
+			String sql = "update books set title= '" + bookInfo.getTitle() + "', author= '" + bookInfo.getAuthor()
+					+ "', publisher='" + bookInfo.getPublisher() + "', publish_date='" + bookInfo.getPublishDate()
+					+ "', thumbnail_name='" + bookInfo.getThumbnailName() + "',thumbnail_url='"
+					+ bookInfo.getThumbnailUrl() + "',isbn='" + bookInfo.getIsbn() + "',upd_date= now(),explanation ='"
+					+ bookInfo.getExplanation() + "' where id=" + bookInfo.getBookId();
+
+			jdbcTemplate.update(sql);
+		}
+
 	}
 
 	/**
@@ -97,5 +109,20 @@ public class BooksService {
 	public void deleteBook(Integer bookId) {
 		String sql = "DELETE FROM books WHERE id=" + bookId + ";";
 		jdbcTemplate.update(sql);
+	}
+
+	public List<String> errorList(String title, String author, String publisher, String publishDate, String isbn) {
+		List<String> list = new ArrayList<String>();
+
+		if (title.equals("") || author.equals("") || publisher.equals("") || publishDate.equals("")) {
+			list.add("<p>必須項目に入力してください</p>");
+		}
+		if (!(publishDate.matches("^[0-9]{8}"))) {
+			list.add("<p>出版日は半角数字のYYYYMMDD形式で入力してください</p>");
+		}
+		if (!(isbn.equals("")) && !(isbn.matches("^[0-9]{10}|[0-9]{13}$"))) {
+			list.add("<p>ISBNの桁数または半角数字が正しくありません</p>");
+		}
+		return list;
 	}
 }

@@ -1,6 +1,5 @@
 package jp.co.seattle.library.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -31,23 +30,17 @@ public class EditBookController {
 
 	@Autowired
 	private ThumbnailService thumbnailService;
-	
-	@Autowired
-    private BooksService bookdService;
 
 	@RequestMapping(value = "/editBook", method = RequestMethod.GET) // value＝actionで指定したパラメータ
 	// RequestParamでname属性を取得
-	public String detailsBook(Locale locale,
-            @RequestParam("bookId") Integer bookId,
-            Model model) {
-        // デバッグ用ログ
-        logger.info("Welcome detailsControler.java! The client locale is {}.", locale);
+	public String detailsBook(Locale locale, @RequestParam("bookId") Integer bookId, Model model) {
+		// デバッグ用ログ
+		logger.info("Welcome detailsControler.java! The client locale is {}.", locale);
 
-        model.addAttribute("bookDetailsInfo", bookdService.getBookInfo(bookId));
+		model.addAttribute("bookDetailsInfo", booksService.getBookInfo(bookId));
 
-        return "editBook";
-    }
-	
+		return "editBook";
+	}
 
 	/**
 	 * 書籍情報を更新する
@@ -62,10 +55,10 @@ public class EditBookController {
 	 */
 	@Transactional
 	@RequestMapping(value = "/editBook", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
-	public String editBook(Locale locale,@RequestParam("bookId") Integer bookId, @RequestParam("title") String title, @RequestParam("author") String author,
-			@RequestParam("publisher") String publisher, @RequestParam("publishDate") String publishDate,
-			@RequestParam("thumbnail") MultipartFile file, @RequestParam("isbn") String isbn,
-			@RequestParam("explanation") String explanation, Model model) {
+	public String editBook(Locale locale, @RequestParam("bookId") Integer bookId, @RequestParam("title") String title,
+			@RequestParam("author") String author, @RequestParam("publisher") String publisher,
+			@RequestParam("publishDate") String publishDate, @RequestParam("thumbnail") MultipartFile file,
+			@RequestParam("isbn") String isbn, @RequestParam("explanation") String explanation, Model model) {
 		logger.info("Welcome insertBooks.java! The client locale is {}.", locale);
 
 		// パラメータで受け取った書籍情報をDtoに格納する。
@@ -96,27 +89,21 @@ public class EditBookController {
 				// 異常終了時の処理
 				logger.error("サムネイルアップロードでエラー発生", e);
 				model.addAttribute("bookDetailsInfo", bookInfo);
-				return "addBook";
+				return "editBook";
 			}
+		} else {
+			bookInfo.setThumbnailName("null");
+			bookInfo.setThumbnailUrl("null");
 		}
-		List<String> list = new ArrayList<String>();
 
-		if (title.equals("") || author.equals("") || publisher.equals("") || publishDate.equals("")) {
-			list.add("<p>必須項目に入力してください</p>");
-		}
-		if (!(publishDate.matches("^[0-9]{8}"))) {
-			list.add("<p>出版日は半角数字のYYYYMMDD形式で入力してください</p>");
-		}
-		if (!(isbn.equals("")) && !(isbn.matches("^[0-9]{10}|[0-9]{13}$"))) {
-			list.add("<p>ISBNの桁数または半角数字が正しくありません</p>");
-		}
-		if (list.size() == 0) {
+		List<String> error = booksService.errorList(title, author, publisher, publishDate, isbn);
+		if (error.size() == 0) {
 			// 書籍情報を更新する
 			booksService.updateBook(bookInfo);
 			model.addAttribute("resultMessage", "登録完了");
 		} else {
-			model.addAttribute("errorMessageDetails", list);
-			model.addAttribute("bookInfo", bookInfo);
+			model.addAttribute("errorMessageDetails", error);
+			model.addAttribute("bookDetailsInfo", bookInfo);
 			return "editBook";
 		}
 
