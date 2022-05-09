@@ -17,18 +17,27 @@ public class RentalsService {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
+	/**
+	 * 書籍番号を取得する
+	 *
+	 * @param bookId 書籍番号
+	 */
 	public int selectBookInfo(int bookId) {
 		// TODO SQL生成
 		String sql = "select book_id from rentals where book_id = " + bookId;
 		try {
-			int selectedUserInfo = jdbcTemplate.queryForObject(sql, int.class);
-			return selectedUserInfo;
+			int selectedBookId = jdbcTemplate.queryForObject(sql, int.class);
+			return selectedBookId;
 		} catch (Exception e) {
 			return -1;
 		}
-
 	}
 
+	/**
+	 * rentalsテーブルに書籍を登録する
+	 *
+	 * @param bookId 書籍番号
+	 */
 	public void registRentals(int bookId) {
 		String sql = "INSERT INTO rentals (book_id) VALUES (" + bookId + ")";
 
