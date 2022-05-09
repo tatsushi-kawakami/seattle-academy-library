@@ -31,9 +31,6 @@ public class BulkRegistController {
 	@Autowired
 	private BooksService booksService;
 
-//	@Autowired
-//	private ThumbnailService thumbnailService;
-
 	@RequestMapping(value = "/bulkRegist", method = RequestMethod.GET) // value＝actionで指定したパラメータ
 	// RequestParamでname属性を取得
 	public String login(Model model) {
@@ -55,7 +52,6 @@ public class BulkRegistController {
 				model.addAttribute("errorBulk", "csvに書籍情報がありません。");
 				return "bulkRegist";
 			}
-
 			while ((line = br.readLine()) != null) {
 				count++;
 				final String[] data = line.split(",", -1);
@@ -68,15 +64,12 @@ public class BulkRegistController {
 					bookInfo.setPublishDate(data[3]);
 					bookInfo.setIsbn(data[4]);
 					bookInfo.setExplanation(data[5]);
-
 					BookList.add(bookInfo);
 				} else {
-					ErrorList.add("<p>"+count + "行目でバリデーションエラーが起きました"+"</p>");
-					
+					ErrorList.add("<p>" + count + "行目でバリデーションエラーが起きました" + "</p>");
 				}
 
 			}
-
 			if (!(ErrorList.isEmpty())) {
 				model.addAttribute("errorBulk", ErrorList);
 				return "bulkRegist";

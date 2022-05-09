@@ -39,7 +39,7 @@
                             「書籍名、著者名、出版日、ISBN」の形式で記載してください。<br /> ※サムネイル画像は一括登録できません。編集画面で1冊単位で登録してください。
                         </p>
                     </div>
-                    <input type="file" name="file">
+                    <input type="file" accept=".csv" name="file">
                 </div>
                 <div class="addBookBtn_box">
                     <button type="submit" id="bulkRegist-btn" class="btn_bulkRegist">一括登録</button>
