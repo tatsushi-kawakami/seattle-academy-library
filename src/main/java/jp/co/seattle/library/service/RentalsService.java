@@ -21,6 +21,7 @@ public class RentalsService {
 	 * 書籍番号を取得する
 	 *
 	 * @param bookId 書籍番号
+	 * @return　selectedBookId
 	 */
 	public int selectBookInfo(int bookId) {
 		// TODO SQL生成
