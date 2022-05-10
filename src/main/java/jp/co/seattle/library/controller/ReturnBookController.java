@@ -38,11 +38,11 @@ public class ReturnBookController {
 	public String ReturnBook(Locale locale, @RequestParam("bookId") int bookId, RedirectAttributes redirectAttributes) {
 		logger.info("Welcome returnBooks.java! The client locale is {}.", locale);
 
-		int id = rentalsService.selectBookInfo(bookId);
-		if (id < 0) {
-			redirectAttributes.addFlashAttribute("errorRentals", "貸出しされていません。");
-		} else {
+	    boolean bookIdExists = rentalsService.selectBookInfo(bookId);
+		if (bookIdExists) {
 			rentalsService.deleteRentals(bookId);
+		} else {			
+			redirectAttributes.addFlashAttribute("errorRentals", "貸出しされていません。");
 		}
 		return "redirect:/details?bookId=" + bookId;
 	}

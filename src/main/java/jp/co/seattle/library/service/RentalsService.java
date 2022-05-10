@@ -23,15 +23,11 @@ public class RentalsService {
 	 * @param bookId 書籍番号
 	 * @return　selectedBookId
 	 */
-	public int selectBookInfo(int bookId) {
+	public boolean selectBookInfo(int bookId) {
 		// TODO SQL生成
-		String sql = "select book_id from rentals where book_id = " + bookId;
-		try {
-			int selectedBookId = jdbcTemplate.queryForObject(sql, int.class);
-			return selectedBookId;
-		} catch (Exception e) {
-			return -1;
-		}
+		String sql = "select exists (select book_id from rentals where book_id = " + bookId+")";
+			boolean BookIdExists = jdbcTemplate.queryForObject(sql, boolean.class);
+			return BookIdExists;
 	}
 
 	/**
