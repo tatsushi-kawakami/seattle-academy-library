@@ -19,9 +19,9 @@ import jp.co.seattle.library.service.RentalsService;
  * 詳細表示コントローラー
  */
 @Controller
-public class ReturnBookController{
+public class ReturnBookController {
 	final static Logger logger = LoggerFactory.getLogger(BooksService.class);
-	
+
 	@Autowired
 	private RentalsService rentalsService;
 
@@ -37,14 +37,13 @@ public class ReturnBookController{
 	@RequestMapping(value = "/returnBook", method = RequestMethod.POST)
 	public String ReturnBook(Locale locale, @RequestParam("bookId") int bookId, RedirectAttributes redirectAttributes) {
 		logger.info("Welcome returnBooks.java! The client locale is {}.", locale);
-		
+
 		int id = rentalsService.selectBookInfo(bookId);
 		if (id < 0) {
 			redirectAttributes.addFlashAttribute("errorRentals", "貸出しされていません。");
-			return "redirect:/details?bookId=" + bookId;
 		} else {
 			rentalsService.deleteRentals(bookId);
-			return "redirect:/details?bookId=" + bookId;
 		}
+		return "redirect:/details?bookId=" + bookId;
 	}
 }
