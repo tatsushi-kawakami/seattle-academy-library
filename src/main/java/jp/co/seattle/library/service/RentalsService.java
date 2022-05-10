@@ -45,4 +45,14 @@ public class RentalsService {
 		jdbcTemplate.update(sql);
 	}
 
+	/**
+	 * rentalsテーブルの書籍を削除する
+	 *
+	 * @param bookId 書籍番号
+	 */
+	public void deleteRentals(int bookId) {
+		String sql = "DELETE FROM rentals WHERE book_id =" + bookId;
+		jdbcTemplate.update(sql);
+	}
+	
 }
