@@ -26,7 +26,7 @@ public class RentalsBookController {
 	private RentalsService rentalsService;
 
 	/**
-	 * 詳細画面に遷移する
+	 * 借りるボタンの実装
 	 * 
 	 * @param locale
 	 * @param bookId
@@ -38,14 +38,12 @@ public class RentalsBookController {
 	public String RentalsBook(Locale locale, @RequestParam("bookId") int bookId, RedirectAttributes redirectAttributes) {
 		logger.info("Welcome insertBooks.java! The client locale is {}.", locale);
 
-		int id = rentalsService.selectBookInfo(bookId);
-		if (id > 0) {
+		boolean bookIdExists = rentalsService.selectBookInfo(bookId);
+		if (bookIdExists) {
 			redirectAttributes.addFlashAttribute("errorRentals", "貸し出し済みです。");
-			return "redirect:/details?bookId=" + bookId;
 		} else {
 			rentalsService.registRentals(bookId);
-			return "redirect:/details?bookId=" + bookId;
 		}
-
+		return "redirect:/details?bookId=" + bookId;
 	}
 }
