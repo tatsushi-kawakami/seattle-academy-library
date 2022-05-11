@@ -49,7 +49,9 @@ public class BooksService {
 	public BookDetailsInfo getBookInfo(int bookId) {
 
 		// JSPに渡すデータを設定する
-		String sql = "SELECT * FROM books where id =" + bookId;
+		String sql = "SELECT books.id, books.title, books.author, books.publisher, books.publish_date,books.thumbnail_name,books.thumbnail_url, books.isbn,books.explanation,rentals.book_id "
+				+ "FROM books LEFT OUTER JOIN  rentals ON (books.id = rentals.book_id) "
+				+ "where books.id ="+ bookId;
 
 		BookDetailsInfo bookDetailsInfo = jdbcTemplate.queryForObject(sql, new BookDetailsInfoRowMapper());
 

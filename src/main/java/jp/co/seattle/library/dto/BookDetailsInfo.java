@@ -29,6 +29,8 @@ private String isbn;
 
 private String explanation;
 
+private String book_id;
+
 	public BookDetailsInfo() {
 
 	}
