@@ -29,7 +29,7 @@ private String isbn;
 
 private String explanation;
 
-private String book_id;
+private String judgment;
 
 	public BookDetailsInfo() {
 
