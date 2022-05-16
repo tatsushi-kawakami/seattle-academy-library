@@ -97,18 +97,6 @@ input {
 	justify-content: space-between;
 }
 
-.child1 {
-	margin: 8px;
-	padding: 8px 12px;
-	text-align: center;
-}
-
-.child2 {
-	margin: 8px;
-	padding: 8px;
-	text-align: center;
-}
-
 .home_top {
 	display: -webkit-flex;
 	display: flex;
