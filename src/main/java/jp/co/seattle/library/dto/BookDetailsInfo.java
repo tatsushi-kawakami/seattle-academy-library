@@ -29,6 +29,8 @@ private String isbn;
 
 private String explanation;
 
+private String judgment;
+
 	public BookDetailsInfo() {
 
 	}

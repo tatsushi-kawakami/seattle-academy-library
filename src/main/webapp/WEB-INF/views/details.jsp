@@ -42,6 +42,7 @@
                         </c:if> <input type="hidden" name="bookId" value="${bookDetailsInfo.bookId}">
                     </a>
                 </div>
+                <p>${bookDetailsInfo.judgment}</p>
                 <c:if test="${!empty errorRentals}">
                     <div class="error">${errorRentals}</div>
                 </c:if>
