@@ -127,4 +127,19 @@ public class BooksService {
 		}
 		return list;
 	}
+	
+	/**
+	 * 書籍検索情報を取得する
+	 *
+	 * @param search 検索内容
+	 * @return 部分一致した書籍情報
+	 */
+	public List<BookInfo> getSearchBookInfo(String search) {
+		// TODO 取得したい情報を取得するようにSQLを修正
+				List<BookInfo> getSearchBookList = jdbcTemplate.query(
+						"select id, title, thumbnail_url, author, publisher, publish_date FROM books WHERE title LIKE '%" + search + "%'",
+						new BookInfoRowMapper());
+
+				return getSearchBookList;
+	}
 }
