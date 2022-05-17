@@ -10,6 +10,8 @@
 <link href="<c:url value="/resources/css/default.css" />" rel="stylesheet" type="text/css">
 <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 <link href="<c:url value="/resources/css/home.css" />" rel="stylesheet" type="text/css">
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="resources/js/Search_button.js"></script>
 </head>
 <body class="wrapper">
     <header>
@@ -31,13 +33,19 @@
                 <a href="<%=request.getContextPath()%>/addBook" class="btn_add_book">書籍の追加</a> <a href="<%=request.getContextPath()%>/bulkRegist" class="btn_bulk_book">一括登録</a>
             </div>
             <form action="searchBook" method="post">
-                <input type="search" class="search1" placeholder="キーワード入力" id="search" name="search" autocomplete="off">
-                <button type="submit" id="add-btn" class="btn_search_book">検索</button>
+                <input type="search" class="search1" placeholder="キーワード入力" id="search_box" name="search" autocomplete="off" onchange="change()">
+                <button type="submit" id="search_button" class="btn_search_book" disabled>検索</button>
+                <p>
+                    検索方法 <input type="radio" name="radio_button" value="1" checked> 部分一致 <input type="radio" name="radio_button" value="2"> 完全一致
+                </p>
             </form>
         </div>
         <div class="content_body">
             <c:if test="${!empty resultMessage}">
                 <div class="error_msg">${resultMessage}</div>
+            </c:if>
+            <c:if test="${empty bookList}">
+                <div class="error">書籍情報がありません</div>
             </c:if>
             <div>
                 <div class="booklist">
