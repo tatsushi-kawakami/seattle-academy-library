@@ -31,6 +31,11 @@
         <div class="container">
             <div>
                 <a href="<%=request.getContextPath()%>/addBook" class="btn_add_book">書籍の追加</a> <a href="<%=request.getContextPath()%>/bulkRegist" class="btn_bulk_book">一括登録</a>
+                <div style="display: inline-flex">
+                    <form method="get" action="HistoryList">
+                        <button type="submit" class="btn_history_list">貸出履歴一覧</button>
+                    </form>
+                </div>
             </div>
             <form action="searchBook" method="post">
                 <input type="search" class="search1" placeholder="キーワード入力" id="search_box" name="search" autocomplete="off" onchange="change()">
