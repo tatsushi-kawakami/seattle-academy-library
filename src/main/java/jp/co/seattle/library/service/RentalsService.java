@@ -30,7 +30,7 @@ public class RentalsService {
 	 */
 	public boolean selectBookInfo(int bookId) {
 		// TODO SQL生成
-		String sql = "select case WHEN checkout_date notnull THEN true ELSE false end from rentals where book_id =" + bookId;
+		String sql = "select case WHEN checkout_date notnull THEN true ELSE false end from rentals right join books ON rentals.book_id = books.id where books.id =" + bookId;
 		boolean BookIdExists = jdbcTemplate.queryForObject(sql, boolean.class);
 		return BookIdExists;
 	}

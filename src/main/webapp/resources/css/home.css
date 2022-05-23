@@ -333,3 +333,8 @@ hr.border_add {
 .bulk_form .caution p {
 	color: #fa8072;
 }
+
+.table {
+   margin: auto;
+   width: 50%; 
+}
