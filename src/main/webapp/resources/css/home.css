@@ -334,6 +334,10 @@ hr.border_add {
 	color: #fa8072;
 }
 
+h1{
+	font-size: 16px !important;
+}
+
 .table {
    margin: auto;
    width: 50%; 
