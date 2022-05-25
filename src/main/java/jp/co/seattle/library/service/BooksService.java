@@ -49,9 +49,8 @@ public class BooksService {
 	public BookDetailsInfo getBookInfo(int bookId) {
 
 		// JSPに渡すデータを設定する
-		String sql = "select books.id, title, author, publisher, publish_date, thumbnail_name, thumbnail_url, isbn, explanation, "
-				+ "case WHEN book_id > 0 THEN '貸し出し中' ELSE '貸し出し可' end as Judgment FROM books LEFT OUTER JOIN rentals ON books.id = rentals.book_id "
-				+ "where books.id ="+ bookId;
+		String sql = "select books.id, title, author, publisher, publish_date, thumbnail_name, thumbnail_url, isbn, explanation, case WHEN checkout_date notnull THEN '貸し出し中' ELSE '貸し出し可' end as Judgment FROM books LEFT OUTER JOIN rentals ON books.id = rentals.book_id where books.id ="
+				+ bookId;
 
 		BookDetailsInfo bookDetailsInfo = jdbcTemplate.queryForObject(sql, new BookDetailsInfoRowMapper());
 
@@ -109,7 +108,7 @@ public class BooksService {
 	 * @param bookId 書籍番号
 	 */
 	public void deleteBook(Integer bookId) {
-		String sql = "DELETE FROM books WHERE id=" + bookId + ";";
+		String sql = "with t as(delete from books where id="+ bookId + ")delete from rentals where book_id=" + bookId + ";";
 		jdbcTemplate.update(sql);
 	}
 
@@ -127,7 +126,7 @@ public class BooksService {
 		}
 		return list;
 	}
-	
+
 	/**
 	 * 書籍検索情報を取得する
 	 *
@@ -136,13 +135,13 @@ public class BooksService {
 	 */
 	public List<BookInfo> getSearchBookInfo(String search) {
 		// TODO 取得したい情報を取得するようにSQLを修正
-				List<BookInfo> getSearchBookList = jdbcTemplate.query(
-						"select id, title, thumbnail_url, author, publisher, publish_date FROM books WHERE title LIKE '%" + search + "%'",
-						new BookInfoRowMapper());
+		List<BookInfo> getSearchBookList = jdbcTemplate
+				.query("select id, title, thumbnail_url, author, publisher, publish_date FROM books WHERE title LIKE '%"
+						+ search + "%'", new BookInfoRowMapper());
 
-				return getSearchBookList;
+		return getSearchBookList;
 	}
-	
+
 	/**
 	 * 書籍検索情報を取得する
 	 *
@@ -151,10 +150,10 @@ public class BooksService {
 	 */
 	public List<BookInfo> getSearchAllBookInfo(String search) {
 		// TODO 取得したい情報を取得するようにSQLを修正
-				List<BookInfo> getAllSearchBookList = jdbcTemplate.query(
-						"select id, title, thumbnail_url, author, publisher, publish_date FROM books WHERE title ='" + search + "'",
-						new BookInfoRowMapper());
+		List<BookInfo> getAllSearchBookList = jdbcTemplate
+				.query("select id, title, thumbnail_url, author, publisher, publish_date FROM books WHERE title ='"
+						+ search + "'", new BookInfoRowMapper());
 
-				return getAllSearchBookList;
+		return getAllSearchBookList;
 	}
 }

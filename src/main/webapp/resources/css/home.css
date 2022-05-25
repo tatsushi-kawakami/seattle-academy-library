@@ -155,7 +155,7 @@ img.book_img {
 
 a.btn_add_book, a.btn_bulk_book, button.btn_addBook, button.btn_editBook,
 	button.btn_deleteBook, button.btn_rentBook, button.btn_returnBook,
-	button.btn_bulkRegist, button.btn_searchBook, button.btn_search_book {
+	button.btn_bulkRegist, button.btn_searchBook, button.btn_search_book, button.btn_history_list {
 	display: inline-block;
 	font-size: 16px;
 	font-weight: bold;
@@ -192,6 +192,14 @@ button.btn_returnBook {
 
 button.btn_bulkRegist {
 	background-color: #FF9966;
+}
+
+button.btn_history_list{
+	background-color: #FF9933;
+	width: 120px;
+	margin-top: 20px;
+	border: none;
+	border-bottom: solid 2px rgba(0, 0, 0, .2);
 }
 
 a:hover, button:hover {
@@ -248,7 +256,7 @@ a:hover, button:hover {
 }
 
 button.btn_addBook, button.btn_editBook, button.btn_deleteBook, button.btn_rentBook,
-	button.btn_returnBook, button.btn_bulkRegist {
+	button.btn_returnBook, button.btn_bulkRegist{
 	border-radius: 30px;
 	width: 120px;
 	margin-top: 20px;
@@ -257,13 +265,13 @@ button.btn_addBook, button.btn_editBook, button.btn_deleteBook, button.btn_rentB
 }
 
 button.btn_addBook:focus, button.btn_editBook:focus, button.btn_deleteBook:focus,
-	button.btn_rentBook:focus, button.btn_returnBook:focus, button.btn_bulkRegist:focus
+	button.btn_rentBook:focus, button.btn_returnBook:focus, button.btn_bulkRegist:focus, button.btn_history_list
 	{
 	outline: none;
 }
 
 button.btn_addBook:hover, button.btn_editBook:hover, button.btn_deleteBook:hover,
-	button.btn_rentBook:hover, button.btn_returnBook:hover, button.btn_bulkRegist:hover
+	button.btn_rentBook:hover, button.btn_returnBook:hover, button.btn_bulkRegist:hover, button.btn_history_list
 	{
 	cursor: pointer;
 }
@@ -324,4 +332,13 @@ hr.border_add {
 
 .bulk_form .caution p {
 	color: #fa8072;
+}
+
+h1{
+	font-size: 16px !important;
+}
+
+.table {
+   margin: auto;
+   width: 50%; 
 }

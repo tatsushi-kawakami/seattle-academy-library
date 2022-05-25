@@ -40,6 +40,7 @@ a.warning {
     width : 48px;
     height: 48px;
     border-style: none;
+    padding:0em;
 }
 /* ロゴ・マーク：ロゴ */
 .logo {
